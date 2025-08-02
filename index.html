@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>DOOM Online</title>
+  <style>
+    body { background: #111; color: #ccc; margin:0; font-family:monospace; }
+    #container { margin: 30px auto; width: 680px; }
+    #doom { width: 640px; height: 400px; background: #000; }
+    #tip { margin-top:8px; text-align:center; font-size:15px; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>🚀 DOOM на GitHub Pages</h2>
+    <div id="doom"></div>
+    <div id="tip">WASD / стрелки — движение • Ctrl/S — стрелять • Esc — выйти</div>
+  </div>
+  <script src="js-dos.js"></script>
+  <script>
+    Dos(document.getElementById("doom"), {
+      wdosboxUrl: "js-dos.js",
+      cycles: 8000
+    }).ready((fs, main) => {
+      fs.extract("doom.zip").then(() => {
+        main(["-c", "doom.exe"]);
+      });
+    });
+  </script>
+</body>
+</html>
