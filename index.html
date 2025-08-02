@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <title>Play DOOM</title>
-    <style>
-      /* Make the page and the player fill the viewport */
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        background: #000;
-        overflow: hidden;
-      }
-      #dosbox {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-    <script src="https://js-dos.com/cdn/js-dos-api.js"></script>
-  </head>
-  <body>
-    <div id="dosbox"></div>
-    <script>
-      // Auto-start DOOM using js-dos player API. The options below instruct
-      // js-dos to immediately load and run the game bundle in fullscreen
-      // and hide any UI overlays (kiosk mode).
-      const player = Dos(document.getElementById('dosbox'), {
-        url: 'https://js-dos.com/cdn/upload/DOOM-@evilution.zip',
-        autoStart: true,
-        fullScreen: true,
-        kiosk: true,
-      });
-      // No further code needed; js-dos will handle loading and starting
-    </script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Play DOOM</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    /* Container to crop the iframe so only the game area is visible */
+    .iframe-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Position the iframe so that the top banner of the embedded page is shifted
+       out of view. Increase the height to ensure the bottom of the game is
+       visible despite the upward shift. Adjust the offset (e.g. 90px) if the
+       banner height changes. */
+    .iframe-container iframe {
+      position: absolute;
+      top: -90px;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 90px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="iframe-container">
+    <iframe src="https://js-dos.com/games/doom.exe.html" allowfullscreen></iframe>
+  </div>
+</body>
 </html>
