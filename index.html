@@ -4,53 +4,40 @@
     <meta charset="utf-8">
     <title>Play DOOM</title>
     <style>
-      /* Make the page and the DOSBox canvas take up the full viewport */
+      /* Make the page and the DOS player fill the entire viewport */
       html, body {
         margin: 0;
         padding: 0;
         height: 100%;
         width: 100%;
         background: #000;
+        overflow: hidden;
       }
       #dosbox {
         width: 100%;
         height: 100%;
       }
-      /* Ensure the DOSBox container fills the page and hide overlays */
-      .dosbox-container {
-        width: 100% !important;
-        height: 100% !important;
-      }
-      /* Hide the default overlay (click to start) and powered-by footer */
-      .dosbox-overlay,
-      .dosbox-powered {
-        display: none !important;
-      }
     </style>
+    <!-- Load the js-dos API from the CDN -->
     <script src="https://js-dos.com/cdn/js-dos-api.js"></script>
   </head>
   <body>
     <div id="dosbox"></div>
     <script>
       /*
-       * Automatically start DOOM when the page loads.  Use the js-dos API to
-       * download the DOOM bundle from the js-dos CDN and run the DOS
-       * executable.  The 'onload' callback is triggered once the
-       * emulator is ready, and 'onrun' fires when the program starts.  In
-       * 'onrun' we request full screen so the game fills the entire page.
+       * Use the modern js-dos API to automatically start DOOM in fullscreen
+       * without showing the default overlay.  The options
+       * `autoStart` and `fullScreen` instruct js-dos to immediately begin
+       * execution and switch to fullscreen mode.  The `kiosk` option hides
+       * the player UI (overlay, loader and powered-by footer) for a clean view.
        */
-      window.addEventListener('load', () => {
-        const dosbox = new Dosbox({
-          id: 'dosbox',
-          onload: (dos) => {
-            // DOOM bundle from js-dos CDN: the executable is named "doom" in root
-            dos.run('https://js-dos.com/cdn/upload/DOOM-@evilution.zip', './doom');
-          },
-          onrun: (dos, app) => {
-            // Request full screen when the program starts
-            dos.requestFullScreen();
-          }
-        });
+      Dos(document.getElementById('dosbox'), {
+        url: 'https://js-dos.com/cdn/upload/DOOM-@evilution.zip',
+        autoStart: true,
+        fullScreen: true,
+        kiosk: true,
+      }).then((dos) => {
+        // Optionally, you can handle events here
       });
     </script>
   </body>
