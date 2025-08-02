@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Play DOOM</title>
     <style>
-      /* Make the page and the DOS player fill the entire viewport */
+      /* Make the page and the player fill the viewport */
       html, body {
         margin: 0;
         padding: 0;
@@ -18,27 +18,21 @@
         height: 100%;
       }
     </style>
-    <!-- Load the js-dos API from the CDN -->
     <script src="https://js-dos.com/cdn/js-dos-api.js"></script>
   </head>
   <body>
     <div id="dosbox"></div>
     <script>
-      /*
-       * Use the modern js-dos API to automatically start DOOM in fullscreen
-       * without showing the default overlay.  The options
-       * `autoStart` and `fullScreen` instruct js-dos to immediately begin
-       * execution and switch to fullscreen mode.  The `kiosk` option hides
-       * the player UI (overlay, loader and powered-by footer) for a clean view.
-       */
-      Dos(document.getElementById('dosbox'), {
+      // Auto-start DOOM using js-dos player API. The options below instruct
+      // js-dos to immediately load and run the game bundle in fullscreen
+      // and hide any UI overlays (kiosk mode).
+      const player = Dos(document.getElementById('dosbox'), {
         url: 'https://js-dos.com/cdn/upload/DOOM-@evilution.zip',
         autoStart: true,
         fullScreen: true,
         kiosk: true,
-      }).then((dos) => {
-        // Optionally, you can handle events here
       });
+      // No further code needed; js-dos will handle loading and starting
     </script>
   </body>
 </html>
