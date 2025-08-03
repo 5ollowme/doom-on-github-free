@@ -8,17 +8,34 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
       background: #000;
     }
-    iframe {
+    /* Wrapper to clip the iframe to the viewport */
+    .iframe-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      overflow: hidden;
+    }
+    /* Position the iframe so only the game canvas is visible.
+       We shift it upward and extend its height to hide the top
+       banner and the bottom notes/buttons entirely. */
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: -80px;       /* hide the top status/banner */
+      left: 0;
+      width: 100%;
+      height: calc(100% + 160px); /* compensate for the upward shift */
       border: none;
     }
   </style>
 </head>
 <body>
-  <!-- Embed DOOM directly from js-dos.com. The red header remains, preserving the fullscreen button. -->
-  <iframe src="https://js-dos.com/games/doom.exe.html" allowfullscreen></iframe>
+  <div class="iframe-wrapper">
+    <iframe src="https://js-dos.com/games/doom.exe.html" allowfullscreen></iframe>
+  </div>
 </body>
 </html>
